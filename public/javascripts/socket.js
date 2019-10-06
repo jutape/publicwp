@@ -37,7 +37,7 @@ $(() => {
       message.addClass("received");
       let contato = $("<p>");
       contato.addClass("contact");
-      contato.text(people);
+      contato.text(pessoa);
       message.prepend(contato);
     }
     $(".conversation-container").append(message);
@@ -46,6 +46,7 @@ $(() => {
   const addToStatus = users => {
     if (Array.isArray(users)) {
       $(".status").text(users.join(", "));
+      $(".status").attr("title", users.join(", "));
     }
   };
 });
