@@ -1,4 +1,6 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -150,12 +152,14 @@ body {
 .conversation {
   height: calc(100% - 12px);
   position: relative;
-  background: #efe7dd url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg") repeat;
+  background: #efe7dd
+    url("https://cloud.githubusercontent.com/assets/398893/15136779/4e765036-1639-11e6-9201-67e728e86f39.jpg")
+    repeat;
   z-index: 0;
 }
 
 .conversation ::-webkit-scrollbar {
-  transition: all .5s;
+  transition: all 0.5s;
   width: 5px;
   height: 1px;
   z-index: 10;
@@ -184,11 +188,11 @@ body {
 }
 
 /* Messages */
-.info{
+.info {
   left: 25%;
   width: 50%;
   text-align: center;
-  background: rgba(225,245,254,.92);
+  background: rgba(225, 245, 254, 0.92);
   border-radius: 10px;
   color: #000;
   clear: both;
@@ -232,7 +236,7 @@ body {
 }
 
 .metadata .time {
-  color: rgba(0, 0, 0, .45);
+  color: rgba(0, 0, 0, 0.45);
   font-size: 11px;
   display: inline-block;
 }
@@ -248,35 +252,44 @@ body {
 
 .metadata .tick svg {
   position: absolute;
-  transition: .5s ease-in-out;
+  transition: 0.5s ease-in-out;
 }
 
 .metadata .tick svg:first-child {
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-transform: perspective(800px) rotateY(180deg);
-          transform: perspective(800px) rotateY(180deg);
+  transform: perspective(800px) rotateY(180deg);
 }
 
 .metadata .tick svg:last-child {
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   -webkit-transform: perspective(800px) rotateY(0deg);
-          transform: perspective(800px) rotateY(0deg);
+  transform: perspective(800px) rotateY(0deg);
 }
 
 .metadata .tick-animation svg:first-child {
   -webkit-transform: perspective(800px) rotateY(0);
-          transform: perspective(800px) rotateY(0);
+  transform: perspective(800px) rotateY(0);
 }
 
 .metadata .tick-animation svg:last-child {
   -webkit-transform: perspective(800px) rotateY(-179.9deg);
-          transform: perspective(800px) rotateY(-179.9deg);
+  transform: perspective(800px) rotateY(-179.9deg);
 }
 
 .message:first-child {
   margin: 16px 0 8px;
+}
+
+.contact {
+  font-weight: bold;
+  font-size: 12px;
+  height: 0px;
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: green;
 }
 
 .message.received {
