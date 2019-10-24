@@ -1,8 +1,35 @@
 $(() => {
   var socket = io();
-  var people = prompt("digite seu nick");
 
-  socket.emit("user connect", people);
+  const tailScroll = () => {
+    var height = $(".conversation-container").get(0).scrollHeight;
+    $(".conversation-container").animate(
+      {
+        scrollTop: height
+      },
+      500
+    );
+  }
+
+  const addToStatus = users => {
+    if (Array.isArray(users)) {
+      $(".status").text(users.join(", "));
+      $(".status").attr("title", users.join(", "));
+    }
+  };
+
+  var people = prompt("Digite seu nome de usuario:");
+  const Login = people => {
+    socket.emit("user connect", people, (aprove, message) => {
+      if (!aprove) {
+        alert(message);
+        people = prompt("Digite seu nome de usuario:");
+        Login(people);
+      }
+    });
+  };
+
+  Login(people);
 
   $(".conversation-compose").submit(e => {
     e.preventDefault(); // prevents page reloading
@@ -17,6 +44,7 @@ $(() => {
     newUser.text(`${people} se conectou`);
     addToStatus(users);
     $(".conversation-container").append(newUser);
+    tailScroll();
   });
 
   socket.on("disconnect", (people, users) => {
@@ -25,6 +53,7 @@ $(() => {
     deleteUser.text(`${people} se desconectou`);
     addToStatus(users);
     $(".conversation-container").append(deleteUser);
+    tailScroll();
   });
 
   socket.on("chat message", (msg, pessoa) => {
@@ -41,12 +70,8 @@ $(() => {
       message.prepend(contato);
     }
     $(".conversation-container").append(message);
+    tailScroll();
   });
 
-  const addToStatus = users => {
-    if (Array.isArray(users)) {
-      $(".status").text(users.join(", "));
-      $(".status").attr("title", users.join(", "));
-    }
-  };
+  
 });

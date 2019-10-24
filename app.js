@@ -20,23 +20,31 @@ app.use("/", indexRouter);
 
 var usersArray = [];
 io.on("connection", function(socket) {
-  let user;
-  socket.on("user connect", people => {
-    console.log(`usuario ${people} se conectou`);
-    user = people;
-    usersArray.push(user);
-    io.emit("user connect", people, usersArray);
+  socket.on("user connect", (people, callback) => {
+    if (usersArray.indexOf(people) != -1) {
+      callback(false, "Nome de usuario já em uso!");
+    } else {
+      if (people && people.length >= 4) {
+        callback(true);
+        socket.nickname = people;
+        usersArray.push(socket.nickname);
+        io.emit("user connect", socket.nickname, usersArray);
+      } else {
+        callback(false, "Nome do usuario invalido! minimo de 4 caracteres.");
+      }
+    }
   });
-  socket.on("chat message", function(msg, people) {
-    console.log(`${people}:`, msg);
-    io.emit("chat message", msg, people);
+
+  socket.on("chat message", function(msg) {
+    io.emit("chat message", msg, socket.nickname);
   });
+
   socket.on("disconnect", function() {
-    var index = usersArray.indexOf(user);
+    let index = usersArray.indexOf(socket.nickname);
     if (index > -1) {
       usersArray.splice(index, 1);
     }
-    io.emit("disconnect", user, usersArray);
+    io.emit("disconnect", socket.nickname, usersArray);
   });
 });
 
