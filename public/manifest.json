@@ -1,0 +1,27 @@
+{
+    "short_name": "PublicWP",
+    "name": "Whatsapp Publico",
+    "icons": [
+      {
+        "src": "/images/whatsapp_16x.png",
+        "type": "image/png",
+        "sizes": "16x16"
+      },
+      {
+        "src": "/images/whatsapp_64x.png",
+        "type": "image/png",
+        "sizes": "64x64"
+      },
+      {
+        "src": "/images/whatsapp_256x.png",
+        "type": "image/png",
+        "sizes": "256x256"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#005E54",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/",
+    "theme_color": "#005E54"
+  }
