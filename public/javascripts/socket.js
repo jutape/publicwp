@@ -1,4 +1,5 @@
 $(() => {
+
   const socket = io();
   let people;
 
@@ -68,7 +69,7 @@ $(() => {
       message.addClass("received");
       let contato = $("<p>");
       contato.addClass("contact");
-      contato.css({color})
+      contato.css({ color });
       contato.text(pessoa);
       message.prepend(contato);
     }
