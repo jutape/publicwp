@@ -18,6 +18,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 var usersArray = [];
 io.on("connection", function(socket) {
   socket.on("user connect", (people, callback) => {
@@ -27,6 +36,7 @@ io.on("connection", function(socket) {
       if (people && people.length >= 4) {
         callback(true, undefined);
         socket.nickname = people;
+        socket.color = getRandomColor();
         usersArray.push(socket.nickname);
         io.emit("user connect", socket.nickname, usersArray);
       } else {
@@ -36,7 +46,7 @@ io.on("connection", function(socket) {
   });
 
   socket.on("chat message", function(msg) {
-    io.emit("chat message", msg, socket.nickname);
+    io.emit("chat message", msg, socket.nickname, socket.color);
   });
 
   socket.on("disconnect", function() {

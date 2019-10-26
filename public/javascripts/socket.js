@@ -58,7 +58,7 @@ $(() => {
     tailScroll();
   });
 
-  socket.on("chat message", (msg, pessoa) => {
+  socket.on("chat message", (msg, pessoa, color) => {
     let message = $("<div>");
     message.addClass("message");
     message.text(msg);
@@ -68,6 +68,7 @@ $(() => {
       message.addClass("received");
       let contato = $("<p>");
       contato.addClass("contact");
+      contato.css({color})
       contato.text(pessoa);
       message.prepend(contato);
     }
