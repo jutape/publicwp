@@ -25,7 +25,7 @@ io.on("connection", function(socket) {
       callback(false, "Nome de usuario já em uso!");
     } else {
       if (people && people.length >= 4) {
-        callback(true);
+        callback(true, undefined);
         socket.nickname = people;
         usersArray.push(socket.nickname);
         io.emit("user connect", socket.nickname, usersArray);

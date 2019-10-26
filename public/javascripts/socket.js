@@ -1,5 +1,6 @@
 $(() => {
-  var socket = io();
+  const socket = io();
+  let people;
 
   const tailScroll = () => {
     var height = $(".conversation-container").get(0).scrollHeight;
@@ -9,7 +10,7 @@ $(() => {
       },
       500
     );
-  }
+  };
 
   const addToStatus = users => {
     if (Array.isArray(users)) {
@@ -18,18 +19,19 @@ $(() => {
     }
   };
 
-  var people = prompt("Digite seu nome de usuario:");
-  const Login = people => {
-    socket.emit("user connect", people, (aprove, message) => {
-      if (!aprove) {
+  const login = () => {
+    let nick = prompt("Digite seu nome de usuario:");
+    socket.emit("user connect", nick, (aprove, message) => {
+      if (!aprove && message) {
         alert(message);
-        people = prompt("Digite seu nome de usuario:");
-        Login(people);
+        login();
+      } else {
+        people = nick;
       }
     });
   };
 
-  Login(people);
+  login();
 
   $(".conversation-compose").submit(e => {
     e.preventDefault(); // prevents page reloading
@@ -72,6 +74,4 @@ $(() => {
     $(".conversation-container").append(message);
     tailScroll();
   });
-
-  
 });
